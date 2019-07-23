@@ -1,0 +1,46 @@
+{% include 'start-shopping' %}
+{% if settings.products_featured_collection != blank %}
+{% if collections[settings.products_featured_collection].products_count != 0 %}
+{% assign sidebar_enable = true %}
+{% endif %}
+{% endif %}
+
+<h1 class="small--text-center">{{ page.title }}</h1>
+
+<div class="grid">
+  <div class="grid__item{% if sidebar_enable %} medium-up--three-quarters large-up--four-fifths{% endif %}">
+    <div class="content-block content-block--large">
+      <div class="rte rte--indented-images">
+        {{ page.content }}
+        <h6>Top Selling Products:</h6>
+        {% if page.handle == 'alternative-baby-clothes' %}
+        {% if linklists.alternative-baby-clothes.links.size > 0 %}
+        <div class="collections">
+          {% for link in linklists.alternative-baby-clothes.links %}
+          <div class="collection-thumb grid__item one-quarter">
+            <a href="{{ link.url }}"><img class="collection-thumb-img" src="{{ link.object.featured_image | product_img_url: 'medium' }}"></a>
+            <div class="collection-thumb-title">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}  
+        {% endif %}
+      </div>
+ </div>
+  </div>
+  <div class="grid__item medium-up--one-quarter large-up--one-fifth small--hide">
+    <h2>Related Topics:</h2>
+    {% if linklists.alternative-baby-clothes-related.links.size > 0 %}
+    <div class="related-products">
+      {% for link in linklists.alternative-baby-clothes-related.links %}
+      <div class="related-product-title">
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      </div>
+
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
